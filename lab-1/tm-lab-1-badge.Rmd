@@ -69,10 +69,11 @@ library(textdata)
 library(scales)
 
 ##This is my own data, let me know if you need the document to check/run
-
-springfufour <- read_excel("~/Documents/GitHub/EQuIPD Data/05_2020 Spring Follow Up 4.xlsx")
+library(readr)
+Data_TM_Badge_One_Dulany <- read_csv("data/Data_TM_Badge_One_Dulany.csv")
+springfufour <- read_csv("data/Data_TM_Badge_One_Dulany.csv")
 #Read in data sheet
-springfufoursel<- select(springfufour, Q4) #select data columns
+springfufoursel<- select(springfufour, Q3, Q4) #select data columns
 springfufour_sliced <- slice(springfufoursel, -1, -2) # remove data headers rows 1+2 from qualtrics data
 
 springtidy<-unnest_tokens(springfufour_sliced, word, Q4) #tokenize quotes
@@ -91,7 +92,6 @@ spring_counts2 <- count(springclean2, word, sort = TRUE) #count words 2
 
 library(wordcloud2) #word cloud package
 wordcloud2(spring_counts2) #run wordcloud
-
 
 ```
 
