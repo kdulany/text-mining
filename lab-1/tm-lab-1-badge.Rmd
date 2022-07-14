@@ -1,7 +1,7 @@
 ---
 title: 'Intro to TM Badge'
 subtitle: "LASER Institute TM Learning Lab 1"
-author: "Dr. Shiyan Jiang"
+author: "Krista Dulany"
 date: "`r format(Sys.Date(),'%B %e, %Y')`"
 output: html_document
 ---
@@ -70,8 +70,9 @@ library(scales)
 
 ##This is my own data, let me know if you need the document to check/run
 
-springfufour <- read_excel("lab-1/05_2020 Spring Follow Up 4 copy.xlsx") #Read in data sheet
-springfufoursel<- select(springfufour, Q2, Q4) #select data columns
+springfufour <- read_excel("~/Documents/GitHub/EQuIPD Data/05_2020 Spring Follow Up 4.xlsx")
+#Read in data sheet
+springfufoursel<- select(springfufour, Q4) #select data columns
 springfufour_sliced <- slice(springfufoursel, -1, -2) # remove data headers rows 1+2 from qualtrics data
 
 springtidy<-unnest_tokens(springfufour_sliced, word, Q4) #tokenize quotes

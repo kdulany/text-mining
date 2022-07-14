@@ -391,9 +391,10 @@ Your output should look something like this:
 ```{r find-quotes, echo=FALSE}
 forum_quotes <- ts_forum_data %>%
   select(post_content) %>% 
-  filter(grepl('time', post_content))
+  filter(grepl(" time ", post_content))
+#to make sure you get a specific word, you can put spaces before and after to isolate the term in the search - avoid timely, spacetime etc.
 
-sample_n(forum_quotes,10)
+sample<-sample_n(forum_quotes,10)
 ```
 
 #### Creating a Document Term Matrix
@@ -697,7 +698,6 @@ forums_lda <- LDA(forums_dtm,
                   k = 20, 
                   control = list(seed = 588)
                   )
-
 forums_lda
 ```
 
