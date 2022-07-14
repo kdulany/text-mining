@@ -54,7 +54,42 @@ I highly recommend creating a new R script in your lab-1 folder to complete this
 
 ```{r, my-data-product}
 # YOUR FINAL CODE HERE
+library(tidyverse)
+library(tidytext)
+library(dplyr)
+library(readr)
+library(tidyr)
+library(rtweet)
+library(writexl)
+library(readxl)
+library(tidytext)
+library(textdata)
+library(ggplot2)
+library(textdata)
+library(scales)
 
+##This is my own data, let me know if you need the document to check/run
+
+springfufour <- read_excel("lab-1/05_2020 Spring Follow Up 4 copy.xlsx") #Read in data sheet
+springfufoursel<- select(springfufour, Q2, Q4) #select data columns
+springfufour_sliced <- slice(springfufoursel, -1, -2) # remove data headers rows 1+2 from qualtrics data
+
+springtidy<-unnest_tokens(springfufour_sliced, word, Q4) #tokenize quotes
+springclean<-anti_join(springtidy, stop_words) #remove the stop words
+spring_counts <- count(springclean, word, sort = TRUE) #count words
+
+library(wordcloud2) #word cloud package
+wordcloud2(spring_counts) #run wordcloud with all words
+
+remove_words <-data.frame("word"= c("remote", "teach", "teaching", "students"))
+spring_remove <- anti_join(springtidy,remove_words) #remove repeat words
+springclean2<-anti_join(spring_remove, stop_words) #remove the stop words 2
+spring_counts2 <- count(springclean2, word, sort = TRUE) #count words 2
+
+
+
+library(wordcloud2) #word cloud package
+wordcloud2(spring_counts2) #run wordcloud
 
 
 ```
