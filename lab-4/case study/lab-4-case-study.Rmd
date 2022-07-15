@@ -85,6 +85,7 @@ library(tidyverse)
 library(tidymodels)
 library(textrecipes)
 library(discrim) #naive Bayes model is available in the tidymodels package discrim.
+library("naivebayes")
 ```
 
 ------------------------------------------------------------------------
@@ -197,6 +198,8 @@ comments_folds
 Now let's set up a naive bayes model.
 
 ```{r}
+library(NaiveBayes)
+
 nb_spec <- naive_Bayes() %>%
   set_mode("classification") %>%
   set_engine("naivebayes")
@@ -245,7 +248,7 @@ model performs and helps us to identify problems and think about ways to
 address the problems.
 
 ```{r}
-cm <- conf_mat(nb_rs[[5]][[1]], truth = more_info,
+cm <- conf_mat(nb_rs[[5]][[2]], truth = more_info,
          estimate = .pred_class)
 
 autoplot(cm, type = "heatmap")
@@ -260,3 +263,29 @@ from these two models:
 
 1.  Does the SVM model work better than the naive Bayes model?
 2.  Why does the SVM model work better (or worse)?
+
+```{r, SVM}
+svm_Spec<-svm_poly(degree=1)|>
+  set_mode("classification")|>
+  set_engine("kernlab", scaled = FALSE)
+
+svm_wf <- workflow() %>%
+  add_recipe(comments_rec) %>%
+  add_model(svm_Spec)
+
+library(kernlab)
+svm_rs <- fit_resamples(
+  svm_wf,
+  comments_folds,
+  control = control_resamples(save_pred = TRUE)
+)
+
+svm_rs_metrics <- collect_metrics(svm_rs)
+svm_rs_metrics
+
+svm_cm <- conf_mat(svm_rs[[5]][[1]], truth = more_info,
+         estimate = .pred_class)
+
+autoplot(svm_cm, type = "heatmap")
+
+```
