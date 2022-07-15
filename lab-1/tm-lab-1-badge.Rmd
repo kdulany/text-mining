@@ -88,6 +88,10 @@ head(spring_counts)
 library(wordcloud2) #word cloud package
 wordcloud2(spring_counts) #run wordcloud with all words
 
+```
+
+```{r, FINAL PRODUCT}
+# Word Cloud 2 with text removed - 
 #Wordcloud with removed words
 remove_words <-data.frame("word"= c("remote", "teach", "teaching", "students"))
 spring_remove <- anti_join(springtidy,remove_words) #remove repeat words
