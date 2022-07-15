@@ -26,25 +26,26 @@ Use the institutional library (e.g. [NCSU Library](https://www.lib.ncsu.edu/#art
 
 1.  Provide an APA citation for your selected study.
 
-    -   
+    -   Okoye, K., Arrona-Palacios, A., Camacho-Zuñiga, C., Hammout, N., Nakamura, E. L., Escamilla, J., & Hosseini, S. (2020). Impact of students evaluation of teaching: a text analysis of the teachers qualities by gender. International Journal of Educational Technology in Higher Education, 17(1). https://doi.org/10.1186/s41239-020-00224-z
+
 
 2.  How does the visualization address research questions?
 
-    -   
+    -   this paper proposes an Educational Process and Data Mining (EPDM) model that leverages the perspectives or opinions of the students to provide useful evalutations related to gender.
 
 Draft a research question for a population you may be interested in studying, or that would be of interest to educational researchers, and that would require the collection of text data and answer the following questions:
 
 1.  What text data would need to be collected?
 
-    -   
+    -   Study the growth of teacher understanding of concepts taught in PD series over time and to get information to inform PD decisions. 
 
 2.  For what reason would text data need to be collected in order to address this question?
 
-    -   
+    -   Need teacher understanding of concepts and  opinions and feedback on PDs. This is easy to collect in brief surveys at the start and end of sessions.
 
 3.  Explain the analytical level at which these text data would need to be collected and analyzed.
 
-    -   
+    -   Data would need to collected, cleaned, tokenized, followed by sentiment analysis in regards to conceptual knowledge understanding of the PD topic and to look at the sentiments of the experience in the PD. 
 
 ### Part II: Data Product
 
@@ -75,14 +76,19 @@ springfufour <- read_csv("data/Data_TM_Badge_One_Dulany.csv")
 #Read in data sheet
 springfufoursel<- select(springfufour, Q3, Q4) #select data columns
 springfufour_sliced <- slice(springfufoursel, -1, -2) # remove data headers rows 1+2 from qualtrics data
+head(springfufour_sliced)
 
 springtidy<-unnest_tokens(springfufour_sliced, word, Q4) #tokenize quotes
 springclean<-anti_join(springtidy, stop_words) #remove the stop words
+head(springclean)
+
 spring_counts <- count(springclean, word, sort = TRUE) #count words
+head(spring_counts)
 
 library(wordcloud2) #word cloud package
 wordcloud2(spring_counts) #run wordcloud with all words
 
+#Wordcloud with removed words
 remove_words <-data.frame("word"= c("remote", "teach", "teaching", "students"))
 spring_remove <- anti_join(springtidy,remove_words) #remove repeat words
 springclean2<-anti_join(spring_remove, stop_words) #remove the stop words 2
