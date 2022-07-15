@@ -26,8 +26,7 @@ Use the institutional library (e.g. [NCSU Library](https://www.lib.ncsu.edu/#art
 
 1.  Provide an APA citation for your selected study.
 
-    -   Okoye, K., Arrona-Palacios, A., Camacho-Zuñiga, C., Hammout, N., Nakamura, E. L., Escamilla, J., & Hosseini, S. (2020). Impact of students evaluation of teaching: a text analysis of the teachers qualities by gender. International Journal of Educational Technology in Higher Education, 17(1). https://doi.org/10.1186/s41239-020-00224-z
-
+    -   Okoye, K., Arrona-Palacios, A., Camacho-Zuñiga, C., Hammout, N., Nakamura, E. L., Escamilla, J., & Hosseini, S. (2020). Impact of students evaluation of teaching: a text analysis of the teachers qualities by gender. International Journal of Educational Technology in Higher Education, 17(1). <https://doi.org/10.1186/s41239-020-00224-z>
 
 2.  How does the visualization address research questions?
 
@@ -37,15 +36,15 @@ Draft a research question for a population you may be interested in studying, or
 
 1.  What text data would need to be collected?
 
-    -   Study the growth of teacher understanding of concepts taught in PD series over time and to get information to inform PD decisions. 
+    -   Study the growth of teacher understanding of concepts taught in PD series over time and to get information to inform PD decisions.
 
 2.  For what reason would text data need to be collected in order to address this question?
 
-    -   Need teacher understanding of concepts and  opinions and feedback on PDs. This is easy to collect in brief surveys at the start and end of sessions.
+    -   Need teacher understanding of concepts and opinions and feedback on PDs. This is easy to collect in brief surveys at the start and end of sessions.
 
 3.  Explain the analytical level at which these text data would need to be collected and analyzed.
 
-    -   Data would need to collected, cleaned, tokenized, followed by sentiment analysis in regards to conceptual knowledge understanding of the PD topic and to look at the sentiments of the experience in the PD. 
+    -   Data would need to collected, cleaned, tokenized, followed by sentiment analysis in regards to conceptual knowledge understanding of the PD topic and to look at the sentiments of the experience in the PD.
 
 ### Part II: Data Product
 
@@ -83,10 +82,9 @@ springclean<-anti_join(springtidy, stop_words) #remove the stop words
 head(springclean)
 
 spring_counts <- count(springclean, word, sort = TRUE) #count words
-head(spring_counts)
+head(spring_counts) #"Students" and "Teachers" or "Teaching" are a main words that are taking focus in the word cloud and are a words that can be removed
 
 library(wordcloud2) #word cloud package
-wordcloud2(spring_counts) #run wordcloud with all words
 
 ```
 
@@ -99,8 +97,6 @@ springclean2<-anti_join(spring_remove, stop_words) #remove the stop words 2
 spring_counts2 <- count(springclean2, word, sort = TRUE) #count words 2
 
 
-
-library(wordcloud2) #word cloud package
 wordcloud2(spring_counts2) #run wordcloud
 
 ```
